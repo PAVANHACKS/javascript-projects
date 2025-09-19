@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .form-container {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 6px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .error {
+      color: red;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Registration Form</h2>
+    <form id="regForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" placeholder="Enter your name">
+      <span id="nameError" class="error"></span>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Enter your email">
+      <span id="emailError" class="error"></span>
+
+      <label for="phone">Phone Number:</label>
+      <input type="text" id="phone" placeholder="Enter your phone">
+      <span id="phoneError" class="error"></span>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Enter password">
+      <span id="passwordError" class="error"></span>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("regForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Stop form submission
+
+      let valid = true;
+
+      // Name Validation
+      let name = document.getElementById("name").value;
+      if (name.trim() === "") {
+        document.getElementById("nameError").innerText = "Name is required!";
+        valid = false;
+      } else {
+        document.getElementById("nameError").innerText = "";
+      }
+
+      // Email Validation
+      let email = document.getElementById("email").value;
+      let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.match(emailPattern)) {
+        document.getElementById("emailError").innerText = "Enter a valid email!";
+        valid = false;
+      } else {
+        document.getElementById("emailError").innerText = "";
+      }
+
+      // Phone Validation (10 digits only)
+      let phone = document.getElementById("phone").value;
+      let phonePattern = /^[0-9]{10}$/;
+      if (!phone.match(phonePattern)) {
+        document.getElementById("phoneError").innerText = "Enter a valid 10-digit number!";
+        valid = false;
+      } else {
+        document.getElementById("phoneError").innerText = "";
+      }
+
+      // Password Validation (min 6 characters)
+      let password = document.getElementById("password").value;
+      if (password.length < 6) {
+        document.getElementById("passwordError").innerText = "Password must be at least 6 characters!";
+        valid = false;
+      } else {
+        document.getElementById("passwordError").innerText = "";
+      }
+
+      // If all valid
+      if (valid) {
+        alert("Registration Successful!");
+        document.getElementById("regForm").reset();
+      }
+    });
+  </script>
+</body>
+</html>
